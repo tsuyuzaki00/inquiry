@@ -62,7 +62,7 @@ def lookMatrix():
             pm.text( label = "offsetParentMatrixT : " + str(offsetParentMatrix[3]))
             pm.separator()
 
-            pm.button( label = 'print', c = 'from mainEdit import lookMatrix as ps; ps.main()')
+            pm.button( label = 'print', c = 'from inquiry import lookMatrix as ps; ps.main()')
 
 def main():
     lookMatrix()
