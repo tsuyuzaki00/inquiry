@@ -25,5 +25,3 @@ def checkShapeColor():
 
 def main():
     checkShapeColor()
-
-main()
