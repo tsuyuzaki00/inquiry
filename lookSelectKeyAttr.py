@@ -5,7 +5,7 @@ import pymel.core as pm
 def selectKeyAttr():
     window = QtWidgets.QWidget(qt.getMayaWindow())
     window.setWindowFlags(QtCore.Qt.Window)
-    window.resize(300,300)
+    window.resize(300,500)
     layout = QtWidgets.QVBoxLayout(window)
     
     widget = QtWidgets.QPlainTextEdit(window)
@@ -17,9 +17,9 @@ def selectKeyAttr():
         selLists = pm.listAttr(k=True)
         for selList in selLists:
             selAttr = pm.getAttr(sel + '.' + selList)
-            print "'" + sel + "', '" + selList + "', '" + str(selAttr) + "'"
-            widget.insertPlainText("'" + sel + "', '" + selList + "', '" + str(selAttr) + "'"+ "\n")
-
+            print "'" + sel + "', '" + selList + "', '" + str(round(selAttr, 3)) + "'"
+            widget.insertPlainText("'" + sel + "', '" + selList + "', '" + str(round(selAttr, 3)) + "'"+ "\n")
+        widget.insertPlainText("\n")
     layout.addWidget(widget)
 
     button = QtWidgets.QPushButton('print',window)
