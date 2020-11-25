@@ -1,3 +1,5 @@
+from mainEdit import qt
+from PySide2 import QtWidgets, QtCore
 import pymel.core as pm
 
 def lookMatrix():
@@ -11,58 +13,60 @@ def lookMatrix():
     parentInverseMatrix = pm.getAttr(sel + ".parentInverseMatrix")
     offsetParentMatrix = pm.getAttr(sel + ".offsetParentMatrix")
 
-    with pm.window( title = 'lookMatrix' ):
-        with pm.columnLayout():
-            pm.text( label = "normalMatrixX : " + str(normalMatrix[0]))
-            pm.text( label = "normalMatrixY : " + str(normalMatrix[1]))
-            pm.text( label = "normalMatrixZ : " + str(normalMatrix[2]))
-            pm.separator()
-            pm.text( label = "normalMatrixT : " + str(normalMatrix[3]))
-            pm.separator()
-            pm.text( label = "worldMatrixX : " + str(worldMatrix[0]))
-            pm.text( label = "worldMatrixY : " + str(worldMatrix[1]))
-            pm.text( label = "worldMatrixZ : " + str(worldMatrix[2]))
-            pm.separator()
-            pm.text( label = "worldMatrixT : " + str(worldMatrix[3]))
-            pm.separator()
-            pm.text( label = "parentMatrixX : " + str(parentMatrix[0]))
-            pm.text( label = "parentMatrixY : " + str(parentMatrix[1]))
-            pm.text( label = "parentMatrixZ : " + str(parentMatrix[2]))
-            pm.separator()
-            pm.text( label = "parentMatrixT : " + str(parentMatrix[3]))
-            pm.separator()
-            pm.text( label = "xformMatrixX : " + str(xformMatrix[0]))
-            pm.text( label = "xformMatrixY : " + str(xformMatrix[1]))
-            pm.text( label = "xformMatrixZ : " + str(xformMatrix[2]))
-            pm.separator()
-            pm.text( label = "xformMatrixT : " + str(xformMatrix[3]))
-            pm.separator()
-            pm.text( label = "inverseMatrixX : " + str(inverseMatrix[0]))
-            pm.text( label = "inverseMatrixY : " + str(inverseMatrix[1]))
-            pm.text( label = "inverseMatrixZ : " + str(inverseMatrix[2]))
-            pm.separator()
-            pm.text( label = "inverseMatrixT : " + str(inverseMatrix[3]))
-            pm.separator()
-            pm.text( label = "inverseWorldMatrixX : " + str(worldInverseMatrix[0]))
-            pm.text( label = "inverseWorldMatrixY : " + str(worldInverseMatrix[1]))
-            pm.text( label = "inverseWorldMatrixZ : " + str(worldInverseMatrix[2]))
-            pm.separator()
-            pm.text( label = "inverseWorldMatrixT : " + str(worldInverseMatrix[3]))
-            pm.separator()
-            pm.text( label = "inverseParentMatrixX : " + str(parentInverseMatrix[0]))
-            pm.text( label = "inverseParentMatrixY : " + str(parentInverseMatrix[1]))
-            pm.text( label = "inverseParentMatrixZ : " + str(parentInverseMatrix[2]))
-            pm.separator()
-            pm.text( label = "inverseParentMatrixT : " + str(parentInverseMatrix[3]))
-            pm.separator()
-            pm.text( label = "offsetParentMatrixX : " + str(offsetParentMatrix[0]))
-            pm.text( label = "offsetParentMatrixY : " + str(offsetParentMatrix[1]))
-            pm.text( label = "offsetParentMatrixZ : " + str(offsetParentMatrix[2]))
-            pm.separator()
-            pm.text( label = "offsetParentMatrixT : " + str(offsetParentMatrix[3]))
-            pm.separator()
+    window = QtWidgets.QWidget(qt.getMayaWindow())
+    window.setWindowFlags(QtCore.Qt.Window)
+    window.resize(400,300)
+    layout = QtWidgets.QVBoxLayout(window)
+    
+    widget = QtWidgets.QPlainTextEdit(window)
+    
+    matrixLists = [
+        ['normalMatrixX', str(normalMatrix[0])],
+        ['normalMatrixY', str(normalMatrix[1])],
+        ['normalMatrixZ', str(normalMatrix[2])],
+        ['normalMatrixT', str(normalMatrix[3])],
+        ['worldMatrixX', str(worldMatrix[0])],
+        ['worldMatrixY', str(worldMatrix[1])],
+        ['worldMatrixZ', str(worldMatrix[2])],
+        ['worldMatrixT', str(worldMatrix[3])],
+        ['parentMatrixX', str(parentMatrix[0])],
+        ['parentMatrixY', str(parentMatrix[1])],
+        ['parentMatrixZ', str(parentMatrix[2])],
+        ['parentMatrixT', str(parentMatrix[3])],
+        ['xformMatrixX', str(xformMatrix[0])],
+        ['xformMatrixY', str(xformMatrix[1])],
+        ['xformMatrixZ', str(xformMatrix[2])],
+        ['xformMatrixT', str(xformMatrix[3])],
+        ['inverseMatrixX', str(inverseMatrix[0])],
+        ['inverseMatrixY', str(inverseMatrix[1])],
+        ['inverseMatrixZ', str(inverseMatrix[2])],
+        ['inverseMatrixT', str(inverseMatrix[3])],
+        ['inverseWorldMatrixX', str(worldInverseMatrix[0])],
+        ['inverseWorldMatrixY', str(worldInverseMatrix[1])],
+        ['inverseWorldMatrixZ', str(worldInverseMatrix[2])],
+        ['inverseWorldMatrixT', str(worldInverseMatrix[3])],
+        ['inverseParentMatrixX', str(parentInverseMatrix[0])],
+        ['inverseParentMatrixY', str(parentInverseMatrix[1])],
+        ['inverseParentMatrixZ', str(parentInverseMatrix[2])],
+        ['inverseParentMatrixT', str(parentInverseMatrix[3])],
+        ['offsetParentMatrixX', str(offsetParentMatrix[0])],
+        ['offsetParentMatrixY', str(offsetParentMatrix[1])],
+        ['offsetParentMatrixZ', str(offsetParentMatrix[2])],
+        ['offsetParentMatrixT', str(offsetParentMatrix[3])],
+        ]
+    for matrixList in matrixLists:
+        widget.insertPlainText(matrixList[0] + "\t:\t" + str(matrixList[1]) +"\n")
 
-            pm.button( label = 'print', c = 'from inquiry import lookMatrix as ps; ps.main()')
+    layout.addWidget(widget)
+
+    button = QtWidgets.QPushButton('print',window)
+    layout.addWidget(button)
+
+    button.clicked.connect(main)
+
+    window.show()
 
 def main():
     lookMatrix()
+
+main()
