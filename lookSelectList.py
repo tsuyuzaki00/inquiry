@@ -13,10 +13,12 @@ def selectKeyAttr():
     sels = pm.selected()
 
     try:
-        widget.insertPlainText(sels[0] + " = [\n")
+        print sels[0]
     except:
         pm.error('Nothing is selected')
     else:
+        part = sels[0].split('.')
+        widget.insertPlainText(part[0] + " = [\n")
         for sel in sels:    
             widget.insertPlainText("\t'" + sel + "'\n")
         widget.insertPlainText("\t]")
