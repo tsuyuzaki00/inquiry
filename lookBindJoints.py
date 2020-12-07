@@ -6,7 +6,7 @@ import mainEdit.autoRename as ar
 def listBindJoints(sels):
     window = QtWidgets.QWidget(qt.getMayaWindow())
     window.setWindowFlags(QtCore.Qt.Window)
-    window.resize(400,300)
+    window.resize(650,300)
     layout = QtWidgets.QVBoxLayout(window)
     
     widget = QtWidgets.QPlainTextEdit(window)
@@ -24,8 +24,13 @@ def listBindJoints(sels):
                     widget.insertPlainText("\t'" + jntList + "',\n")
                 print '\t\t]'
                 widget.insertPlainText('\t]\n')
-                print "\tpm.skinCluster('"+ sel +"', " + ar.obj(sel) + "Bind, tsb = True) "
-                widget.insertPlainText("pm.skinCluster('"+ sel +"', " + ar.obj(sel) +"Bind, tsb = True)\n")
+                skcName = sel.replace(ar.node(sel), 'skc')
+                cswName = sel.replace(ar.node(sel), 'csw')
+                print "\tpm.skinCluster('"+ sel +"', " + ar.obj(sel) + "Bind, n = "+ skcName +", tsb = True) "
+                widget.insertPlainText("pm.skinCluster('"+ sel +"', " + ar.obj(sel) +"Bind, n = '"+ skcName +"', tsb = True)\n")
+                print "\tpm.copySkinWeights(ss = '"+ str(skinCluster[0]) +"', ds = '" + cswName + "', noMirror = True)"
+                widget.insertPlainText("pm.copySkinWeights(ss = '"+ str(skinCluster[0]) +"', ds = '" + cswName + "', noMirror = True)\n")
+                
             else :
                 pm.error('Unbound or SkinCluster is not connected')
         else :
