@@ -17,18 +17,13 @@ def listBindJoints(sels):
             skinCluster = pm.listConnections( shape[0] + '.inMesh', d=False, s=True)
             if skinCluster[0].nodeType() == 'skinCluster':
                 bindList = pm.listConnections( skinCluster[0] + '.matrix', d=False, s=True)
-                print ar.obj(sel) + 'Bind = ['
                 widget.insertPlainText(ar.obj(sel) + 'Bind = [\n')
                 for jntList in bindList:
-                    print "\t\t'" + jntList + "',"
                     widget.insertPlainText("\t'" + jntList + "',\n")
-                print '\t\t]'
                 widget.insertPlainText('\t]\n')
                 skcName = sel.replace(ar.node(sel), 'skc')
                 cswName = sel.replace(ar.node(sel), 'csw')
-                print "\tpm.skinCluster('"+ sel +"', " + ar.obj(sel) + "Bind, n = "+ skcName +", tsb = True) "
                 widget.insertPlainText("pm.skinCluster('"+ sel +"', " + ar.obj(sel) +"Bind, n = '"+ skcName +"', tsb = True)\n")
-                print "\tpm.copySkinWeights(ss = '"+ str(skinCluster[0]) +"', ds = '" + cswName + "', noMirror = True)"
                 widget.insertPlainText("pm.copySkinWeights(ss = '"+ str(skinCluster[0]) +"', ds = '" + cswName + "', noMirror = True)\n")
                 
             else :
