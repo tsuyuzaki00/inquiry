@@ -20,7 +20,7 @@ def selectKeyAttr():
         part = sels[0].split('.')
         widget.insertPlainText(part[0] + " = [\n")
         for sel in sels:    
-            widget.insertPlainText("\t'" + sel + "'\n")
+            widget.insertPlainText("\t'" + sel + "',\n")
         widget.insertPlainText("\t]")
         layout.addWidget(widget)
 
