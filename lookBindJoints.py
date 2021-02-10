@@ -24,7 +24,7 @@ def listBindJoints(sels):
                 skcName = sel.replace(ar.node(sel), 'skc')
                 cswName = sel.replace(ar.node(sel), 'csw')
                 widget.insertPlainText("pm.skinCluster('"+ sel +"', " + ar.obj(sel) +"Bind, n = '"+ skcName +"', tsb = True)\n")
-                widget.insertPlainText("pm.copySkinWeights(ss = '"+ str(skinCluster[0]) +"', ds = '" + cswName + "', noMirror = True)\n")
+                widget.insertPlainText("pm.copySkinWeights(ss = '"+ str(skinCluster[0]) +"', ds = '" + skcName + "', noMirror = True)\n")
                 
             else :
                 pm.error('Unbound or SkinCluster is not connected')
